@@ -1,0 +1,15 @@
+@font-face {
+    font-family: Digital;
+    src: url('font/Orbitron-VariableFont_wght.ttf');
+}
+
+body {
+    font-family: Digital, sans-serif;
+}
+
+#calcScreen {
+    border: 1px solid black;
+    height: 20px;
+    width: 90%;
+    margin: 10px 0 10px 0;
+}
