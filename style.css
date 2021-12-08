@@ -7,9 +7,35 @@ body {
     font-family: Digital, sans-serif;
 }
 
+h1 {
+    padding: 0 100px 0 100px;
+}
+
+#calculatorBorder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 650px;
+    width: 650px;
+}
+
 #calcScreen {
     border: 1px solid black;
-    height: 20px;
-    width: 90%;
-    margin: 10px 0 10px 0;
+    height: 50px;
+    width: 450px;
+    margin: 0 100px 0 100px;
+}
+
+#buttonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 450px;
+}
+
+button {
+    font-size: 20px;
+    width: 100px;
+    height: 100px;
 }

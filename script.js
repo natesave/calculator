@@ -1,7 +1,17 @@
+const screen = document.querySelector("#calcScreen")
+let displayValue = screen.textContent;
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        screen.textContent = button.id;
+    })
+})
+
 let add = (x, y) => x + y;
 let subtract = (x, y) => x - y;
 let multiply = (x, y) => x * y;
-let divide =  (x, y) => x / y;
+let divide = (x, y) => x / y;
 
 function operate(operator, x, y) {
     if(operator === "+") {
@@ -16,3 +26,4 @@ function operate(operator, x, y) {
         return "Not valid inputs."
     }
 }
+
