@@ -38,31 +38,30 @@ buttons.forEach((button) => { //links number buttons for actions
         numArray.push(Number(button.id)); //adds the number clicked on the calculator to the numArray
         screen.textContent = +numArray.join(''); //displays the number on the calculator screen
         findY();
+        console.log(numArray);
     });
-});
+}); 
 
 oper.forEach((sign) => { //links operator buttons for actions
     sign.addEventListener('click', () => {
-        x = findX();
-        console.log(x);
-        y = findY();
+        findX();
+        findY();
+        operator = '';
         operator = sign.textContent; //stores  operator chosen to be used later in the operator function
+        console.log(x);
         numArray = []; //resets array to receive new number (y)
-        });
+    });
 });
 
 equals.addEventListener('click', () => { //links equal sign button for operating
-    y= +numArray.join('');
+    y = +numArray.join('');
     screen.textContent = operate(operator, x, y);
-    console.log(x);
-    console.log(y);
-    console.log(operator);
 });
 
 clear.addEventListener('click', () => {
     numArray = [];
-    x = 0;
-    y = 0;
+    x = '';
+    y = '';
     operator = undefined;
     screen.textContent = 0;
 });
@@ -74,9 +73,11 @@ function findY() {
 };
 
 function findX() {
-    if (x == undefined) { //if there is no previous x, new array will be x
+    if (x == undefined || x == '') { //if there is no previous x, new array will be x
         x = +numArray.join('');
-        return x;
+        console.log(x);
+    //} else if (typeof x == number && y == undefined && operator != '') {
+
     } else if (x != undefined && y != undefined) { //if there was a previously clicked operation, new x will be the result of the operation
         x = operate(operator, x, y);
         return x;
