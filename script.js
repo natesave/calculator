@@ -2,7 +2,7 @@
 let operator;
 let x;
 let y;
-let numArray = [];
+let numArray = [0];
 
 //basic math operations
 let add = (x, y) => x + y;
