@@ -10,7 +10,8 @@ let subtract = (x, y) => x - y;
 let multiply = (x, y) => x * y;
 let divide = (x, y) => x / y;
 
-//function called when pressing equals sign, taking in the operator, first number (x) and second number (y)
+//function called when pressing equals sign or a second operator
+//function takes in the operator, first number (x) and second number (y)
 function operate(operator, x, y) {
     if(operator === '+') {
         screen.textContent = add(x, y);
@@ -38,7 +39,6 @@ buttons.forEach((button) => { //links number buttons for actions
         numArray.push(Number(button.id)); //adds the number clicked on the calculator to the numArray
         screen.textContent = +numArray.join(''); //displays the number on the calculator screen
         findY();
-        console.log(numArray);
     });
 }); 
 
@@ -47,15 +47,14 @@ oper.forEach((sign) => { //links operator buttons for actions
         findX();
         findY();
         operator = '';
-        operator = sign.textContent; //stores  operator chosen to be used later in the operator function
-        console.log(x);
+        operator = sign.textContent; //stores operator chosen to be used in the operator function
         numArray = []; //resets array to receive new number (y)
     });
 });
 
 equals.addEventListener('click', () => { //links equal sign button for operating
     y = +numArray.join('');
-    screen.textContent = operate(operator, x, y);
+    equalsSign();
 });
 
 clear.addEventListener('click', () => {
@@ -67,7 +66,7 @@ clear.addEventListener('click', () => {
 });
 
 function findY() {
-    if (x != undefined) {
+    if (x != undefined) { //if there is an existing value for x, the array will be y
         y = +numArray.join('');
     };
 };
@@ -75,12 +74,16 @@ function findY() {
 function findX() {
     if (x == undefined || x == '') { //if there is no previous x, new array will be x
         x = +numArray.join('');
-        console.log(x);
-    //} else if (typeof x == number && y == undefined && operator != '') {
-
     } else if (x != undefined && y != undefined) { //if there was a previously clicked operation, new x will be the result of the operation
         x = operate(operator, x, y);
         return x;
     };
 };
 
+function equalsSign() { //checks if x and y are defined for operation
+    if (x == undefined || x == '' || y == '' ) {
+        screen.textContent = 'ERROR';
+    } else {
+        return operate(operator, x, y);
+    };
+};
