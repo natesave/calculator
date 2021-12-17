@@ -21,7 +21,7 @@ h1 {
     align-items: center;
     height: 580px;
     width: 400px;
-    background-color: rgb(194, 194, 194);
+    background-color: rgb(218, 218, 218);
     border: 3px solid rgb(0, 0, 0);
 }
 
@@ -62,17 +62,41 @@ button {
     background-color: rgb(185, 216, 255);
     border: 1px solid rgb(36, 36, 36);
     border-radius: 5px;
+    box-shadow: 0 4px rgb(100, 100, 100);
+}
+
+.operator:active, .equal:active, .setting:active {
+    background-color: rgb(160, 191, 230);
+    box-shadow: 0 4px rgb(50, 50, 50);
+    transform: translateY(3px);
 }
 
 .number {
     background-color: rgb(255, 245, 159);
     border: 1px solid rgb(36, 36, 36);
     border-radius: 5px;
+    box-shadow: 0 4px rgb(100, 100, 100);
+}
+
+.number:active {
+    background-color: rgb(230, 220, 134);
+    box-shadow: 0 4px rgb(50, 50, 50);
+    transform: translateY(3px);
 }
 
 .cor {
     background-color: rgb(255, 209, 172);
     border: 1px solid rgb(36, 36, 36);
     border-radius: 5px;
+    box-shadow: 0 4px rgb(100, 100, 100);
 }
 
+.cor:active {
+    background-color: rgb(230, 184, 147);
+    box-shadow: 0 4px rgb(50, 50, 50);
+    transform: translateY(3px);
+}
+
+#decimal {
+    font-size: 40px;
+}
