@@ -38,7 +38,7 @@ function operate(operator, x, y) {
 };
 
 function findY() {
-    if (x != undefined) { //if there is an existing value for x, the array will be y
+    if (x != undefined) { //only if there is an existing value for x, the array will be y
         y = +numArray.join('');
     };
 };
@@ -78,7 +78,7 @@ function addDecimal() {
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        numArray.push(Number(button.id)); //adds the number clicked on the calculator to the numArray
+        numArray.push(Number(button.id)); //adds the number clicked on the calculator to numArray
         screen.textContent = +numArray.join(''); //displays the number on the calculator screen
         findY();
     });
@@ -111,4 +111,8 @@ decimal.addEventListener('click', () => {
     addDecimal();
 });
 
-//order 1. add round numbers up 2. limit screen numbers to 11 3. add negative 4. add backspace
+//things to add:
+//1. limit screen numbers to 10
+//2. add negative and positive button function
+//3. add backspace
+//4. add keyboard support
