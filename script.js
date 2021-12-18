@@ -23,22 +23,41 @@ const back = document.querySelector('#backspace');
 //function takes in the operator, first number (x) and second number (y)
 function operate(operator, x, y) {
     if(operator === '+') {
-        screen.textContent = add(x, y);
-        return add(x, y);
+        let num = add(x, y);
+        let result = checkResultSize(num);
+        screen.textContent = result;
     } else if (operator === '-') {
-        screen.textContent = subtract(x, y);
-        return subtract(x, y);
+        let num = subtract(x, y);
+        let result = checkResultSize(num);
+        screen.textContent = result;
     } else if (operator === '*') {
-        screen.textContent = multiply(x, y);
-        return multiply(x, y);
-    } else if (operator === '/') {
-        screen.textContent = divide(x, y);
-        return divide(x, y);
+        let num = multiply(x, y);
+        let result = checkResultSize(num);
+        screen.textContent = result;
+    } else if (operator === '/') {        
+        let num = divide(x, y);
+        let result = checkResultSize(num);
+        screen.textContent = result;
+    };
+};
+
+function checkArraySize(arr) { //limits the size of number clicked so that there is no overflow on the display
+    if (arr.length > 12) {
+        numArray = arr.slice(0, 12);
+        return arr;
+    };
+};
+
+function checkResultSize(num) { //limits the size of the result of an operation so that there is no overflow on the display
+    if (num.toString().length > 12) {
+        let noDec = num.toFixed(); //finds how many digits before decimal point
+        let dec = 12 - (noDec.toString().length) //allows for specific number of decimal points according to how many digits
+        return num.toFixed(dec);
     };
 };
 
 function findY() {
-    if (x != undefined) { //only if there is an existing value for x, the array will be y
+    if (x != undefined) { //only works if there is an existing value for x
         y = +numArray.join('');
     };
 };
@@ -46,7 +65,7 @@ function findY() {
 function findX() {
     if (x == undefined || x == '') { //if there is no previous x, new array will be x
         x = +numArray.join('');
-    } else if (x != undefined && y != undefined) { //if there was a previously clicked operation, new x will be the result of the operation
+    } else if (x != undefined && y != undefined) { //for a previously clicked operation, the result of the operation will be the next x
         x = operate(operator, x, y);
         return x;
     };
@@ -78,6 +97,7 @@ function addDecimal() {
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
+        checkArraySize(numArray);
         numArray.push(Number(button.id)); //adds the number clicked on the calculator to numArray
         screen.textContent = +numArray.join(''); //displays the number on the calculator screen
         findY();
@@ -112,7 +132,6 @@ decimal.addEventListener('click', () => {
 });
 
 //things to add:
-//1. limit screen numbers to 10
-//2. add negative and positive button function
-//3. add backspace
-//4. add keyboard support
+// add negative and positive button function
+// add backspace
+// add keyboard support
