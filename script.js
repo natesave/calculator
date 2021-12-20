@@ -1,8 +1,9 @@
 //declares variables to be stored for operations
-let operator;
+let numArray = [0];
 let x;
 let y;
-let numArray = [0];
+let operator;
+let z;
 
 //basic math operations
 let add = (x, y) => (x + y);
@@ -24,24 +25,28 @@ const back = document.querySelector('#backspace');
 function operate(operator, x, y) {
     if(operator === '+') {
         let num = add(x, y);
-        let result = checkResultSize(num);
-        screen.textContent = result;
-        return result;
+        let z = checkResultSize(num);
+        screen.textContent = z;
+        operator = '';
+        return z;
     } else if (operator === '-') {
         let num = subtract(x, y);
-        let result = checkResultSize(num);
-        screen.textContent = result;
-        return result;
+        let z = checkResultSize(num);
+        screen.textContent = z;
+        operator = '';
+        return z;
     } else if (operator === '*') {
         let num = multiply(x, y);
-        let result = checkResultSize(num);
-        screen.textContent = result;
-        return result;
+        let z = checkResultSize(num);
+        screen.textContent = z;
+        operator = '';
+        return z;
     } else if (operator === '/') {        
         let num = divide(x, y);
-        let result = checkResultSize(num);
-        screen.textContent = result;
-        return result;
+        let z = checkResultSize(num);
+        screen.textContent = z;
+        operator = '';
+        return z;
     };
 };
 
@@ -62,12 +67,6 @@ function checkResultSize(num) { //limits the size of the result of an operation 
     };
 };
 
-function findY() {
-    if (x != undefined) { //only works if there is an existing value for x
-        y = +numArray.join('');
-    };
-};
-
 function findX() {
     if (x == undefined || x == '') { //if there is no previous x, new array will be x
         x = +numArray.join('');
@@ -78,12 +77,32 @@ function findX() {
     };
 };
 
+function findY() {
+    if (x != undefined) { //only finds y if there is an existing value for x
+        y = +numArray.join('');
+    };
+};
+
+function checkOperation() {
+    if (x == undefined) {
+        x = +numArray.join('');
+        numArray = [];
+    } else if (x != undefined && numArray.length > 0) {
+        y = +numArray.join('');
+        x = operate(operator, x, y);
+        numArray = [];
+    };
+};
+
 function equalsSign() { //checks if x and y are defined for operation
-    if (x == undefined || x == '' || y == '' ) {
+    if (x == undefined || typeof y != 'number' || y == 0) {
         screen.textContent = 'ERROR';
     } else {
         screen.textContent = operate(operator, x, y);
-        return operate(operator, x, y);
+        x = operate(operator, x, y);
+        numArray = [];
+        operator = undefined;
+        return x;
     };
 };
 
@@ -106,11 +125,15 @@ function addDecimal() {
 function posOrNeg() {
     if (x == undefined && y == undefined || x == '' && y == '') {
         numArray.unshift('-');
-    } else {
-        y = '';
-        numArray = Array.from(String(x), Number);
-        x *= -1;
-        console.log(numArray);
+        screen.textContent *= -1;
+    } else if (x != undefined && x != '' && y == undefined || x != undefined && x != '' && y == '') {
+        if (numArray.length > 0) {
+            numArray.unshift('-');
+            screen.textContent *= -1;
+        } else if (numArray.length == 0) {
+            numArray.unshift('-');
+            screen.textContent = '-0';
+        };
     };
 };
 
@@ -119,29 +142,25 @@ buttons.forEach((button) => {
         checkArraySize(numArray);
         numArray.push(Number(button.id)); //adds the number clicked on the calculator to numArray
         screen.textContent = +numArray.join(''); //displays the number on the calculator screen
-        findY();
     });
 }); 
 
 oper.forEach((sign) => {
     sign.addEventListener('click', () => {
-        findX();
-        findY();
-        operator = '';
-        operator = sign.textContent; //stores operator chosen to be used in the operator function
-        numArray = []; //resets array to receive new number (y)
+        checkOperation();
+        operator = sign.textContent;
     });
 });
 
 equals.addEventListener('click', () => {
-    y = +numArray.join('');
-    x = equalsSign();
+    findY();
+    equalsSign();
 });
 
 clear.addEventListener('click', () => {
     numArray = [];
-    x = '';
-    y = '';
+    x = undefined;
+    y = undefined;
     operator = undefined;
     screen.textContent = 0;
 });
@@ -150,21 +169,11 @@ decimal.addEventListener('click', () => {
     addDecimal();
 });
 
-pos_neg.addEventListener('click', () =>{
+pos_neg.addEventListener('click', () => {
+    console.log(numArray.length);
     posOrNeg();
-    screen.textContent *= -1;
-    console.log(x);
-    console.log(y);
 });
 
 // things to add:
 // add backspace
 // add keyboard support
-
-// if (numArray.indexOf('-') == -1) { //adds negative if there isn't one
-//     numArray.unshift('-');
-//     return numArray;
-// } else if (numArray.indexOf('-') != -1) { //removes negative sign if there is one
-//     let index = numArray.indexOf('-');
-//     numArray.splice(index, 1);
-// };
