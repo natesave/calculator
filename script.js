@@ -1,5 +1,5 @@
 //declares variables to be stored for operations
-let numArray = [0];
+let numArray = [];
 let x;
 let y;
 let operator;
@@ -123,17 +123,18 @@ function addDecimal() {
 };
 
 function posOrNeg() {
-    if (x == undefined && y == undefined || x == '' && y == '') {
+    if (numArray.includes('-') == true) { //if there already is a negative sign in number, remove it
+        numArray.shift('-');
+        screen.textContent = numArray.join('');
+    } else if (screen.textContent == '0' || screen.textContent == '' || numArray.length == 0) { //adds negative even if no numbers were pressed
         numArray.unshift('-');
-        screen.textContent *= -1;
-    } else if (x != undefined && x != '' && y == undefined || x != undefined && x != '' && y == '') {
-        if (numArray.length > 0) {
-            numArray.unshift('-');
-            screen.textContent *= -1;
-        } else if (numArray.length == 0) {
-            numArray.unshift('-');
-            screen.textContent = '-0';
-        };
+        screen.textContent = numArray.join('');
+    } else if (numArray.join('') > 0) { //if a number was clicked and it's positive, make it negative 
+        numArray.unshift('-');
+        screen.textContent = numArray.join('');
+    } else if (numArray.join('') < 0) { //if a number was clicked and it's negative, make it positive
+        numArray.shift('-');
+        screen.textCotent = numArray.join('');
     };
 };
 
@@ -170,8 +171,9 @@ decimal.addEventListener('click', () => {
 });
 
 pos_neg.addEventListener('click', () => {
-    console.log(numArray.length);
     posOrNeg();
+    console.log(numArray.length);
+    console.log(numArray);
 });
 
 // things to add:
