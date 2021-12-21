@@ -20,8 +20,6 @@ const pos_neg = document.querySelector('#pos_neg');
 const clear = document.querySelector('#clear');
 const back = document.querySelector('#backspace');
 
-//function below is called when pressing equals sign or a second operator
-//function takes in the operator, first number (x) and second number (y)
 function operate(operator, x, y) {
     if(operator === '+') {
         let num = add(x, y);
@@ -138,6 +136,14 @@ function posOrNeg() {
     };
 };
 
+function backspace() {
+    if (numArray.length > 0) {
+        numArray.pop();
+        screen.textContent = numArray.join('');
+    };
+};
+
+//the code below are for event listeners for each button
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         checkArraySize(numArray);
@@ -172,10 +178,75 @@ decimal.addEventListener('click', () => {
 
 pos_neg.addEventListener('click', () => {
     posOrNeg();
-    console.log(numArray.length);
-    console.log(numArray);
 });
 
-// things to add:
-// add backspace
-// add keyboard support
+back.addEventListener('click', () => {
+    backspace();
+});
+
+//the code below is for keyboard support
+document.addEventListener("keydown", (event) => {
+    console.log(event.key)
+    document.getElementById('+').blur();
+    document.getElementById('-').blur();   
+    document.getElementById('*').blur();  
+    document.getElementById('/').blur();  
+    if (event.key == '1') {
+        document.getElementById('1').click();
+    } 
+    if (event.key == '2') {
+        document.getElementById('2').click();
+    } 
+    if (event.key == '3') {
+        document.getElementById('3').click();
+    } 
+    if (event.key == '4') {
+        document.getElementById('4').click();
+    } 
+    if (event.key == '5') {
+        document.getElementById('5').click();
+    } 
+    if (event.key == '6') {
+        document.getElementById('6').click();
+    } 
+    if (event.key == '7') {
+        document.getElementById('7').click();
+    } 
+    if (event.key == '8') {
+        document.getElementById('8').click();
+    } 
+    if (event.key == '9') {
+        document.getElementById('9').click();
+    } 
+    if (event.key == '0') {
+        document.getElementById('0').click();
+    } 
+    if (event.key == '+') {
+        document.getElementById('+').click();
+        document.getElementById('+').focus();   
+    }
+    if (event.key == '-') {
+        document.getElementById('-').click();
+        document.getElementById('-').focus(); 
+    }
+    if (event.key == '*') {
+        document.getElementById('*').click();
+        document.getElementById('*').focus();
+    }
+    if (event.key == '/') {
+        document.getElementById('/').click();
+        document.getElementById('/').focus();
+    }
+    if (event.key == 'Enter' || event.key == '=') {
+        document.getElementById('=').click();
+    }
+    if (event.key == '.') {
+        document.getElementById('decimal').click();
+    }
+    if (event.key == 'Backspace' || event.key == 'Delete') {
+        document.getElementById('backspace').click();
+    }
+    if (event.key == 'Escape') {
+        document.getElementById('clear').click();
+    }
+});
